@@ -1,0 +1,27 @@
+---1---
+db.atd.countDocuments({})
+
+---2---
+db.atd.count({ nationality: "China" })
+
+---3---
+db.atd.distinct("job")
+
+---4---
+db.atd.aggregate([
+  { $group: {
+      _id: "$sex",
+      avg_weight: { $avg: { $toDouble: "$weight" } },
+      avg_height: { $avg: { $toDouble: "$height" } }
+    }
+  }
+])
+
+---5---
+db.atd.aggregate([{ $unwind: "$credit" }, { $group: { _id: "$credit.currency", total: { $sum: {$toDouble: "$credit.balance"} } } }])
+
+---6---
+db.atd.aggregate([{$group:{_id:"$nationality",avg_bmi:{$avg:{$divide:[{ $toDouble: "$weight" },{$pow:[{$divide:[{ $toDouble: "$height" },100]},2]}]}},min_bmi:{$min:{$divide:[{ $toDouble: "$weight" },{$pow:[{$divide:[{ $toDouble: "$height" },100]},2]}]}},max_bmi:{$max:{$divide:[{ $toDouble: "$weight" },{$pow:[{$divide:[{ $toDouble: "$height" },100]},2]}]}}}}])
+
+---7---
+db.atd.aggregate([{$match:{nationality:"Poland", sex:"Female"}},{$unwind:"$credit"},{$group:{_id:"$credit.currency", total_balance:{$sum:{ $toDouble:"$credit.balance" }}, avg_balance:{$avg:{ $toDouble:"$credit.balance" }}}}])
