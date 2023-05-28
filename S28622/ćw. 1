@@ -1,5 +1,5 @@
 ---1---
-printjson(db.kolekcja.findOne());
+printjson(db.kolekcja.findOne{});
 
 ---2---
 printjson(db.kolekcja.findOne({sex: "Female", nationality: "China"}));
