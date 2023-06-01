@@ -1,0 +1,59 @@
+1a)
+SET 28622 "Hello World"
+
+1b)
+SETRANGE 28622 6 "Redis"
+
+1c) 
+GET 28622
+
+1d)
+DEL 28622
+
+2a)
+RPUSH lista "ATD" "PIT" "ZMZ" "WISIT" "NZZ"
+
+2b)
+LPUSH lista "Początek listy"
+
+2c)
+RPUSH lista "Koniec listy"
+
+2d)
+LINDEX lista 2
+
+3a)
+SADD zbior "Szybcy i wściekli 10" "Creed III" "Magic Mike: Ostatni taniec" "Krater"
+
+3b)
+SISMEMBER zbior "Szybcy i wściekli 10"
+
+3c)
+SCARD zbior
+
+3d)
+SPOP zbior
+
+4a)
+HSET hash "Night at the Museum: Kahmunrah Rises Again" "Noc w muzeum - Kahmunrah powraca" "Puss in Boots: The Last Wish" "Kot w butach: Ostatnie życzenie" "Jurassic World: Dominion" "Park Jurajski: Dominacja" "Black Panther: Wakanda Forever" "Czarna Pantera: Wakanda w moim sercu"
+
+4b)
+HSET hash "Thor: Love and Thunder" "Thor: Miłość i grom"
+
+4c)
+HEXISTS hash "Avatar: The Way of Water"
+
+4d)
+HGETALL hash
+
+5a)
+ZADD zset 8 "Top Gun: Maverick" 7.5 "Johnny" 7.2 "Guillermo del Toro: Pinokio" 6.1 "Scream"
+
+5b)
+ZREVRANGE zset 0 -1
+
+5c)
+ZRANGEBYSCORE zset 7 8
+
+5d)
+ZREVRANK zset "Guillermo del Toro: Pinokio"
