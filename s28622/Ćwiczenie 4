@@ -1,0 +1,29 @@
+1)
+MATCH p = shortestPath((start {name: 'Darjeeling'})-[*..5]->(end {name: 'Sandakphu'})) RETURN p
+
+2)
+MATCH p = shortestPath((start {name: 'Darjeeling'})-[*..5]->(end {name: 'Sandakphu'})) WHERE all(rel in relationships(p) WHERE rel.winter = 'true') RETURN p
+
+3)
+MATCH (start {name: 'Darjeeling'})-[x *..5]->(end {name: 'Sandakphu'})
+RETURN start, x, end
+ORDER BY reduce(totalDistance = 0, rel in x | totalDistance + rel.distance) ASC
+
+4)
+MATCH (start{name: 'Darjeeling'})-[x:twowheeler*]->(end) WHERE all(rel in x WHERE rel.summer = 'true') RETURN start, x, end
+
+5)
+MATCH (a:Airport) - [:ORIGIN] - (f:Flight) RETURN a, COUNT(f) as FlightCount ORDER BY FlightCount DESC
+
+6)
+MATCH (a:Airport) - [:ORIGIN] - (:Flight) - [:DESTINATION] - (l:Airport {name: "LAX"})
+MATCH (b:Airport) - [:ORIGIN] - (:Flight) - [:DESTINATION] - (a)
+WHERE b <> l
+MATCH (c:Airport) - [:ORIGIN] - (:Flight) - [:DESTINATION] - (b)
+RETURN DISTINCT a, b, c
+
+7)
+MATCH (f:Flight)-[rel:ORIGIN]->(p:Person)
+CALL apoc.refactor.invert(rel)
+yield input, output
+return output
